@@ -13,58 +13,57 @@
   <style>
     /* ---------- COLOURS (same list as index.html) ---------- */
     :root {
-      --plate: #1D4F91;       /* street-sign blue */
-      --plate-deep: #143A6E;
-      --paper: #F2F5F7;       /* page background */
-      --card: #FFFFFF;
-      --ink: #15202B;         /* main text */
-      --muted: #55636F;       /* quieter text */
-      --line: #D5DCE2;        /* borders */
-      --bare: #E3E8EC;        /* unpainted kerb and empty bars */
-      --kerb: #F4BE1A;        /* kerb yellow */
-      --resolved: #1F8A5B;    /* green, only used for "resolved" */
+      --green: #157347;       /* main green */
+      --green-deep: #0E5132;  /* darker green */
+      --green-light: #58B587; /* lighter green */
+      --green-soft: #E8F5EE;  /* very pale green: page background */
+      --white: #FFFFFF;
+      --ink: #12251B;         /* main text (a very dark green) */
+      --muted: #4B5F54;       /* quieter text */
+      --line: #C9E0D3;        /* borders */
     }
 
     * { box-sizing: border-box; }
 
     body {
       margin: 0;
-      background: var(--paper);
+      background: var(--green-soft);
       color: var(--ink);
       font-family: "Mukta", system-ui, sans-serif;
       font-size: 1.125rem;
       line-height: 1.5;
     }
 
-    .kerb-band {
-      height: 12px;
-      background: repeating-linear-gradient(
-        90deg,
-        var(--kerb) 0 56px,
-        var(--ink) 56px 112px
-      );
-    }
-
-    .page {
-      max-width: 27rem;
+    /* Keeps the content from stretching too far on very big screens.
+       CHANGE THIS: a bigger max-width makes the page wider. */
+    .wrap {
+      max-width: 80rem;
       margin: 0 auto;
-      padding: 1.5rem 1.25rem 3rem;
+      padding-left: clamp(1.25rem, 4vw, 3rem);
+      padding-right: clamp(1.25rem, 4vw, 3rem);
     }
 
-    /* ---------- TOP OF THE PAGE ---------- */
+    /* ---------- GREEN BAR AT THE TOP ---------- */
+    .topbar {
+      padding: 1.25rem 0 1.5rem;
+      background: var(--green);
+      color: var(--white);
+    }
+
     .back {
-      color: var(--plate);
+      color: var(--white);
       font-weight: 700;
-      text-decoration: none;
+      text-decoration: underline;
+      text-underline-offset: 3px;
     }
 
-    .back:hover { text-decoration: underline; }
+    .back:hover { color: var(--green-soft); }
 
     h1 {
-      margin: 0.75rem 0 1.25rem;
+      margin: 0.5rem 0 0;
       font-family: "Baloo 2", system-ui, sans-serif;
       font-weight: 700;
-      font-size: 2.4rem;
+      font-size: clamp(2.4rem, 4vw, 3.4rem);
       line-height: 1.1;
     }
 
@@ -76,14 +75,29 @@
       line-height: 1.2;
     }
 
-    /* ---------- CLEAN STREAK ---------- */
-    .streak {
+    /* ---------- THE BOXES ----------
+       On a phone they stack one under another.
+       On a laptop the streak and points sit side by side
+       (see the "WIDE SCREENS" block further down). */
+    .page {
+      padding-top: 1.5rem;
+      padding-bottom: 3rem;
+    }
+
+    .grid {
+      display: grid;
+      gap: 1.25rem;
+    }
+
+    .streak,
+    .reports {
       padding: 1.25rem;
-      background: var(--card);
+      background: var(--white);
       border: 2px solid var(--line);
       border-radius: 16px;
     }
 
+    /* ---------- CLEAN STREAK ---------- */
     .streak-top {
       display: flex;
       align-items: flex-end;
@@ -91,9 +105,10 @@
     }
 
     .streak-number {
+      color: var(--green);
       font-family: "Baloo 2", system-ui, sans-serif;
       font-weight: 800;
-      font-size: 4.5rem;
+      font-size: clamp(4.5rem, 7vw, 6rem);
       line-height: 0.85;
     }
 
@@ -110,12 +125,12 @@
       font-size: 1rem;
     }
 
-    /* The week drawn as a kerb: one stone per day.
-       A painted stone means you were active that day. */
+    /* The week drawn as a row of blocks: one block per day.
+       A filled block means you were active that day. */
     .kerb {
       display: grid;
       grid-template-columns: repeat(7, 1fr);
-      gap: 4px;
+      gap: 6px;
       margin: 1.25rem 0 0;
       padding: 0;
       list-style: none;
@@ -123,14 +138,14 @@
 
     .stone {
       height: 30px;
-      background: var(--bare);
-      border: 2px dashed #B9C3CC;
+      background: var(--white);
+      border: 2px dashed #9CC4AE;
       border-radius: 4px;
     }
 
     .stone.painted { border: 0; }
-    .kerb li:nth-child(odd) .stone.painted { background: var(--kerb); }
-    .kerb li:nth-child(even) .stone.painted { background: var(--ink); }
+    .kerb li:nth-child(odd) .stone.painted { background: var(--green); }
+    .kerb li:nth-child(even) .stone.painted { background: var(--green-deep); }
 
     .day {
       display: block;
@@ -140,18 +155,15 @@
       text-align: center;
     }
 
-    /* ---------- IMPACT POINTS (same nameplate look as the logo) ---------- */
+    /* ---------- IMPACT POINTS ---------- */
     .points {
       display: flex;
       align-items: baseline;
       gap: 0.6rem;
-      margin: 1.25rem 4px;
-      padding: 1rem 1.25rem 0.8rem;
-      background: var(--plate);
-      color: #fff;
-      border: 2px solid #fff;
-      border-radius: 12px;
-      box-shadow: 0 0 0 4px var(--plate);
+      padding: 1.1rem 1.25rem 0.9rem;
+      background: var(--green);
+      color: var(--white);
+      border-radius: 16px;
     }
 
     .points-number {
@@ -168,8 +180,6 @@
     }
 
     /* ---------- MY REPORTS ---------- */
-    .reports { margin-top: 2rem; }
-
     .bars {
       display: grid;
       gap: 0.7rem;
@@ -187,7 +197,7 @@
 
     .bar-track {
       height: 14px;
-      background: var(--bare);
+      background: var(--green-soft);
       border-radius: 7px;
       overflow: hidden;
     }
@@ -200,9 +210,9 @@
       transition: width 0.8s ease;
     }
 
-    .bar.submitted { background: var(--plate); }
-    .bar.verified  { background: var(--kerb); }
-    .bar.resolved  { background: var(--resolved); }
+    .bar.submitted { background: var(--green-deep); }
+    .bar.verified  { background: var(--green); }
+    .bar.resolved  { background: var(--green-light); }
 
     .bar-value {
       font-family: "Baloo 2", system-ui, sans-serif;
@@ -221,10 +231,10 @@
     /* ---------- BUTTON AT THE BOTTOM ---------- */
     .button {
       display: block;
-      margin-top: 2rem;
+      margin-top: 1.5rem;
       padding: 0.9rem 1.15rem 0.75rem;
-      background: var(--plate);
-      color: #fff;
+      background: var(--green);
+      color: var(--white);
       border-radius: 14px;
       font-family: "Baloo 2", system-ui, sans-serif;
       font-weight: 700;
@@ -233,12 +243,65 @@
       text-decoration: none;
     }
 
-    .button:hover { background: var(--plate-deep); }
+    .button:hover { background: var(--green-deep); }
 
-    .back:focus-visible,
-    .button:focus-visible {
-      outline: 3px solid var(--kerb);
+    /* Rings shown when someone moves through the page with the keyboard */
+    .back:focus-visible {
+      outline: 3px solid var(--white);
       outline-offset: 3px;
+    }
+
+    .button:focus-visible {
+      outline: 3px solid var(--green-deep);
+      outline-offset: 3px;
+    }
+
+    /* ---------- WIDE SCREENS (laptops and desktops) ----------
+       Everything inside this block only applies when the window
+       is wider than about 900 pixels. */
+    @media (min-width: 56rem) {
+      .topbar { padding: 1.75rem 0 2rem; }
+      .page { padding-top: 2rem; }
+
+      .grid {
+        grid-template-columns: 1.6fr 1fr;   /* streak wider than points */
+        gap: 1.5rem;
+      }
+
+      .streak,
+      .reports { padding: 1.75rem 2rem; }
+
+      /* My reports stretches across both columns */
+      .reports { grid-column: 1 / -1; }
+
+      .stone { height: 44px; }
+
+      /* Points become a tall block with the number on top */
+      .points {
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        gap: 0.25rem;
+        padding: 1.75rem 2rem;
+      }
+
+      .points-number { font-size: clamp(4.5rem, 7vw, 6rem); }
+      .points-label { font-size: 1.6rem; }
+
+      .bar-row {
+        grid-template-columns: 7rem 1fr 2.5rem;
+        gap: 1rem;
+      }
+
+      .bar-track { height: 18px; border-radius: 9px; }
+      .bar { border-radius: 9px; }
+
+      /* The button is only as wide as its text */
+      .button {
+        display: inline-block;
+        padding-left: 2.5rem;
+        padding-right: 2.5rem;
+      }
     }
 
     /* People who have turned off animations get the bars with no movement */
@@ -249,51 +312,58 @@
 </head>
 
 <body>
-  <div class="kerb-band"></div>
 
-  <main class="page">
+  <!-- GREEN BAR AT THE TOP -->
+  <header class="topbar">
+    <div class="wrap">
+      <a class="back" href="index.html">Back to home</a>
+      <h1>My impact</h1>
+    </div>
+  </header>
 
-    <a class="back" href="index.html">Back to home</a>
-    <h1>My impact</h1>
+  <main class="wrap page">
+    <div class="grid">
 
-    <!-- CLEAN STREAK -->
-    <section class="streak">
-      <div class="streak-top">
-        <span class="streak-number" id="streak-number">0</span>
-        <span class="streak-label" id="streak-label">day<br>clean streak</span>
-      </div>
-      <ul class="kerb" id="kerb"></ul>
-      <p class="streak-note" id="streak-note"></p>
-    </section>
+      <!-- CLEAN STREAK -->
+      <section class="streak">
+        <div class="streak-top">
+          <span class="streak-number" id="streak-number">0</span>
+          <span class="streak-label" id="streak-label">day<br>clean streak</span>
+        </div>
+        <ul class="kerb" id="kerb"></ul>
+        <p class="streak-note" id="streak-note"></p>
+      </section>
 
-    <!-- IMPACT POINTS -->
-    <section class="points">
-      <span class="points-number" id="points-number">0</span>
-      <span class="points-label">impact points</span>
-    </section>
+      <!-- IMPACT POINTS -->
+      <section class="points">
+        <span class="points-number" id="points-number">0</span>
+        <span class="points-label">impact points</span>
+      </section>
 
-    <!-- REPORTS SUBMITTED, VERIFIED, RESOLVED -->
-    <section class="reports">
-      <h2>My reports</h2>
-      <ul class="bars">
-        <li class="bar-row">
-          <span>Submitted</span>
-          <span class="bar-track"><span class="bar submitted" id="bar-submitted"></span></span>
-          <span class="bar-value" id="num-submitted">0</span>
-        </li>
-        <li class="bar-row">
-          <span>Verified</span>
-          <span class="bar-track"><span class="bar verified" id="bar-verified"></span></span>
-          <span class="bar-value" id="num-verified">0</span>
-        </li>
-        <li class="bar-row">
-          <span>Resolved</span>
-          <span class="bar-track"><span class="bar resolved" id="bar-resolved"></span></span>
-          <span class="bar-value" id="num-resolved">0</span>
-        </li>
-      </ul>
-      <p class="reports-note" id="reports-note"></p>
-    </section>
+      <!-- REPORTS SUBMITTED, VERIFIED, RESOLVED -->
+      <section class="reports">
+        <h2>My reports</h2>
+        <ul class="bars">
+          <li class="bar-row">
+            <span>Submitted</span>
+            <span class="bar-track"><span class="bar submitted" id="bar-submitted"></span></span>
+            <span class="bar-value" id="num-submitted">0</span>
+          </li>
+          <li class="bar-row">
+            <span>Verified</span>
+            <span class="bar-track"><span class="bar verified" id="bar-verified"></span></span>
+            <span class="bar-value" id="num-verified">0</span>
+          </li>
+          <li class="bar-row">
+            <span>Resolved</span>
+            <span class="bar-track"><span class="bar resolved" id="bar-resolved"></span></span>
+            <span class="bar-value" id="num-resolved">0</span>
+          </li>
+        </ul>
+        <p class="reports-note" id="reports-note"></p>
+      </section>
+
+    </div>
 
     <a class="button" href="report.html">Report a problem</a>
 
@@ -332,7 +402,7 @@
     el("streak-label").innerHTML =
       (stats.cleanStreak === 1 ? "day" : "days") + "<br>clean streak";
 
-    // The kerb: one stone for each day of the week
+    // The week: one block for each day
     const dayLetters = ["M", "T", "W", "T", "F", "S", "S"];
     let activeDays = 0;
 
