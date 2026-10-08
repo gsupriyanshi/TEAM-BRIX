@@ -1,1 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
+  <!-- CHANGE THIS: the text shown on the browser tab -->
+  <title>CleanMap</title>
+
+  <!-- Fonts (loaded from Google Fonts, needs internet) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Mukta:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ---------- COLOURS ----------
+       Change a colour here and it changes everywhere on the page.
+       impact.html uses the same list, so keep the two in sync. */
+    :root {
+      --plate: #1D4F91;       /* street-sign blue: logo and main button */
+      --plate-deep: #143A6E;  /* darker blue, used when you hover */
+      --paper: #F2F5F7;       /* page background */
+      --card: #FFFFFF;        /* button background */
+      --ink: #15202B;         /* main text */
+      --muted: #55636F;       /* quieter text */
+      --line: #D5DCE2;        /* borders */
+      --kerb: #F4BE1A;        /* kerb yellow */
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: "Mukta", system-ui, sans-serif;
+      font-size: 1.125rem;
+      line-height: 1.5;
+    }
+
+    /* The yellow and black painted kerb along the top of the page */
+    .kerb-band {
+      height: 12px;
+      background: repeating-linear-gradient(
+        90deg,
+        var(--kerb) 0 56px,
+        var(--ink) 56px 112px
+      );
+    }
+
+    /* Keeps everything in a phone-width column, centred on big screens */
+    .page {
+      max-width: 27rem;
+      margin: 0 auto;
+      padding: 2.5rem 1.25rem 3rem;
+    }
+
+    /* ---------- LOGO (styled like a street nameplate) ---------- */
+    .plate {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin: 4px;
+      padding: 0.7rem 1.1rem 0.55rem;
+      background: var(--plate);
+      color: #fff;
+      border: 2px solid #fff;
+      border-radius: 10px;
+      box-shadow: 0 0 0 4px var(--plate);
+      font-family: "Baloo 2", system-ui, sans-serif;
+      font-weight: 800;
+      font-size: 1.5rem;
+      line-height: 1;
+    }
+
+    .plate svg {
+      width: 1.3rem;
+      height: 1.3rem;
+      margin-top: -0.2rem;
+    }
+
+    /* ---------- TAGLINE AND EXPLANATION ---------- */
+    h1 {
+      margin: 2rem 0 0.75rem;
+      font-family: "Baloo 2", system-ui, sans-serif;
+      font-weight: 700;
+      font-size: clamp(2.1rem, 9vw, 2.9rem);
+      line-height: 1.08;
+      letter-spacing: -0.01em;
+    }
+
+    .intro {
+      max-width: 34ch;
+      margin: 0 0 2rem;
+      color: var(--muted);
+    }
+
+    /* ---------- THE THREE BUTTONS ---------- */
+    .actions {
+      display: grid;
+      gap: 0.75rem;
+    }
+
+    .action {
+      display: block;
+      padding: 1rem 1.15rem;
+      background: var(--card);
+      color: var(--ink);
+      border: 2px solid var(--line);
+      border-radius: 14px;
+      text-decoration: none;
+    }
+
+    .action strong {
+      display: block;
+      font-family: "Baloo 2", system-ui, sans-serif;
+      font-weight: 700;
+      font-size: 1.3rem;
+      line-height: 1.2;
+    }
+
+    .action span {
+      color: var(--muted);
+      font-size: 1rem;
+    }
+
+    .action:hover { border-color: var(--plate); }
+
+    /* The main button is filled in blue so it stands out */
+    .action.primary {
+      background: var(--plate);
+      border-color: var(--plate);
+      color: #fff;
+    }
+
+    .action.primary span { color: #DCE7F5; }
+
+    .action.primary:hover {
+      background: var(--plate-deep);
+      border-color: var(--plate-deep);
+    }
+
+    /* Yellow ring when someone moves through the page with the keyboard */
+    .action:focus-visible {
+      outline: 3px solid var(--kerb);
+      outline-offset: 3px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="kerb-band"></div>
+
+  <main class="page">
+
+    <!-- LOGO. CHANGE THIS: replace CleanMap with your app's name -->
+    <div class="plate">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M12 22s7-6.6 7-12a7 7 0 1 0-14 0c0 5.4 7 12 7 12z" fill="#fff"/>
+        <circle cx="12" cy="10" r="2.6" fill="#1D4F91"/>
+      </svg>
+      CleanMap
+    </div>
+
+    <!-- TAGLINE. CHANGE THIS -->
+    <h1>Cleaner streets start with one photo.</h1>
+
+    <!-- SHORT EXPLANATION. CHANGE THIS -->
+    <p class="intro">
+      Photograph garbage or an open dump near you, mark where it is,
+      and follow your report until it is cleaned up.
+    </p>
+
+    <!-- THE THREE BUTTONS.
+         href is the file each button opens.
+         report.html and map.html are your teammates' screens, so their
+         file names must match what is written here. -->
+    <nav class="actions">
+      <a class="action primary" href="report.html">
+        <strong>Report a problem</strong>
+        <span>Send a photo and a location</span>
+      </a>
+
+      <a class="action" href="map.html">
+        <strong>Community map</strong>
+        <span>See what has been reported near you</span>
+      </a>
+
+      <a class="action" href="impact.html">
+        <strong>My impact</strong>
+        <span>Your streak, points and reports</span>
+      </a>
+    </nav>
+
+  </main>
+</body>
+</html>
