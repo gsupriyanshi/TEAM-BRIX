@@ -1,1 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>My impact | CleanMap</title>
 
+  <!-- Fonts (loaded from Google Fonts, needs internet) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Mukta:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ---------- COLOURS (same list as index.html) ---------- */
+    :root {
+      --plate: #1D4F91;       /* street-sign blue */
+      --plate-deep: #143A6E;
+      --paper: #F2F5F7;       /* page background */
+      --card: #FFFFFF;
+      --ink: #15202B;         /* main text */
+      --muted: #55636F;       /* quieter text */
+      --line: #D5DCE2;        /* borders */
+      --bare: #E3E8EC;        /* unpainted kerb and empty bars */
+      --kerb: #F4BE1A;        /* kerb yellow */
+      --resolved: #1F8A5B;    /* green, only used for "resolved" */
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: "Mukta", system-ui, sans-serif;
+      font-size: 1.125rem;
+      line-height: 1.5;
+    }
+
+    .kerb-band {
+      height: 12px;
+      background: repeating-linear-gradient(
+        90deg,
+        var(--kerb) 0 56px,
+        var(--ink) 56px 112px
+      );
+    }
+
+    .page {
+      max-width: 27rem;
+      margin: 0 auto;
+      padding: 1.5rem 1.25rem 3rem;
+    }
+
+    /* ---------- TOP OF THE PAGE ---------- */
+    .back {
+      color: var(--plate);
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .back:hover { text-decoration: underline; }
+
+    h1 {
+      margin: 0.75rem 0 1.25rem;
+      font-family: "Baloo 2", system-ui, sans-serif;
+      font-weight: 700;
+      font-size: 2.4rem;
+      line-height: 1.1;
+    }
+
+    h2 {
+      margin: 0 0 0.9rem;
+      font-family: "Baloo 2", system-ui, sans-serif;
+      font-weight: 700;
+      font-size: 1.4rem;
+      line-height: 1.2;
+    }
+
+    /* ---------- CLEAN STREAK ---------- */
+    .streak {
+      padding: 1.25rem;
+      background: var(--card);
+      border: 2px solid var(--line);
+      border-radius: 16px;
+    }
+
+    .streak-top {
+      display: flex;
+      align-items: flex-end;
+      gap: 0.75rem;
+    }
+
+    .streak-number {
+      font-family: "Baloo 2", system-ui, sans-serif;
+      font-weight: 800;
+      font-size: 4.5rem;
+      line-height: 0.85;
+    }
+
+    .streak-label {
+      font-family: "Baloo 2", system-ui, sans-serif;
+      font-weight: 600;
+      font-size: 1.3rem;
+      line-height: 1.15;
+    }
+
+    .streak-note {
+      margin: 0.9rem 0 0;
+      color: var(--muted);
+      font-size: 1rem;
+    }
+
+    /* The week drawn as a kerb: one stone per day.
+       A painted stone means you were active that day. */
+    .kerb {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 4px;
+      margin: 1.25rem 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .stone {
+      height: 30px;
+      background: var(--bare);
+      border: 2px dashed #B9C3CC;
+      border-radius: 4px;
+    }
+
+    .stone.painted { border: 0; }
+    .kerb li:nth-child(odd) .stone.painted { background: var(--kerb); }
+    .kerb li:nth-child(even) .stone.painted { background: var(--ink); }
+
+    .day {
+      display: block;
+      margin-top: 0.2rem;
+      color: var(--muted);
+      font-size: 0.9rem;
+      text-align: center;
+    }
+
+    /* ---------- IMPACT POINTS (same nameplate look as the logo) ---------- */
+    .points {
+      display: flex;
+      align-items: baseline;
+      gap: 0.6rem;
+      margin: 1.25rem 4px;
+      padding: 1rem 1.25rem 0.8rem;
+      background: var(--plate);
+      color: #fff;
+      border: 2px solid #fff;
+      border-radius: 12px;
+      box-shadow: 0 0 0 4px var(--plate);
+    }
+
+    .points-number {
+      font-family: "Baloo 2", system-ui, sans-serif;
+      font-weight: 800;
+      font-size: 3rem;
+      line-height: 1;
+    }
+
+    .points-label {
+      font-family: "Baloo 2", system-ui, sans-serif;
+      font-weight: 600;
+      font-size: 1.3rem;
+    }
+
+    /* ---------- MY REPORTS ---------- */
+    .reports { margin-top: 2rem; }
+
+    .bars {
+      display: grid;
+      gap: 0.7rem;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .bar-row {
+      display: grid;
+      grid-template-columns: 6.25rem 1fr 2rem;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .bar-track {
+      height: 14px;
+      background: var(--bare);
+      border-radius: 7px;
+      overflow: hidden;
+    }
+
+    .bar {
+      display: block;
+      width: 0;
+      height: 100%;
+      border-radius: 7px;
+      transition: width 0.8s ease;
+    }
+
+    .bar.submitted { background: var(--plate); }
+    .bar.verified  { background: var(--kerb); }
+    .bar.resolved  { background: var(--resolved); }
+
+    .bar-value {
+      font-family: "Baloo 2", system-ui, sans-serif;
+      font-weight: 700;
+      font-size: 1.3rem;
+      line-height: 1;
+      text-align: right;
+    }
+
+    .reports-note {
+      margin: 1rem 0 0;
+      color: var(--muted);
+      font-size: 1rem;
+    }
+
+    /* ---------- BUTTON AT THE BOTTOM ---------- */
+    .button {
+      display: block;
+      margin-top: 2rem;
+      padding: 0.9rem 1.15rem 0.75rem;
+      background: var(--plate);
+      color: #fff;
+      border-radius: 14px;
+      font-family: "Baloo 2", system-ui, sans-serif;
+      font-weight: 700;
+      font-size: 1.3rem;
+      text-align: center;
+      text-decoration: none;
+    }
+
+    .button:hover { background: var(--plate-deep); }
+
+    .back:focus-visible,
+    .button:focus-visible {
+      outline: 3px solid var(--kerb);
+      outline-offset: 3px;
+    }
+
+    /* People who have turned off animations get the bars with no movement */
+    @media (prefers-reduced-motion: reduce) {
+      .bar { transition: none; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="kerb-band"></div>
+
+  <main class="page">
+
+    <a class="back" href="index.html">Back to home</a>
+    <h1>My impact</h1>
+
+    <!-- CLEAN STREAK -->
+    <section class="streak">
+      <div class="streak-top">
+        <span class="streak-number" id="streak-number">0</span>
+        <span class="streak-label" id="streak-label">day<br>clean streak</span>
+      </div>
+      <ul class="kerb" id="kerb"></ul>
+      <p class="streak-note" id="streak-note"></p>
+    </section>
+
+    <!-- IMPACT POINTS -->
+    <section class="points">
+      <span class="points-number" id="points-number">0</span>
+      <span class="points-label">impact points</span>
+    </section>
+
+    <!-- REPORTS SUBMITTED, VERIFIED, RESOLVED -->
+    <section class="reports">
+      <h2>My reports</h2>
+      <ul class="bars">
+        <li class="bar-row">
+          <span>Submitted</span>
+          <span class="bar-track"><span class="bar submitted" id="bar-submitted"></span></span>
+          <span class="bar-value" id="num-submitted">0</span>
+        </li>
+        <li class="bar-row">
+          <span>Verified</span>
+          <span class="bar-track"><span class="bar verified" id="bar-verified"></span></span>
+          <span class="bar-value" id="num-verified">0</span>
+        </li>
+        <li class="bar-row">
+          <span>Resolved</span>
+          <span class="bar-track"><span class="bar resolved" id="bar-resolved"></span></span>
+          <span class="bar-value" id="num-resolved">0</span>
+        </li>
+      </ul>
+      <p class="reports-note" id="reports-note"></p>
+    </section>
+
+    <a class="button" href="report.html">Report a problem</a>
+
+  </main>
+
+  <script>
+    /* =====================================================
+       YOUR NUMBERS: CHANGE THESE
+       Everything on the page is filled in from this block.
+       These are made-up sample values. Later, your team can
+       replace this block with real data coming from AWS.
+       ===================================================== */
+    const stats = {
+      cleanStreak: 12,        // days in a row the person has been active
+      impactPoints: 340,
+      reportsSubmitted: 9,
+      reportsVerified: 7,
+      reportsResolved: 5,
+
+      // This week, Monday to Sunday. true = active that day.
+      thisWeek: [true, true, true, true, true, false, false]
+    };
+
+    /* =====================================================
+       You do not need to change anything below this line.
+       It takes the numbers above and puts them on the page.
+       ===================================================== */
+
+    // Small helper: find an element on the page by its id
+    function el(id) {
+      return document.getElementById(id);
+    }
+
+    // Clean streak
+    el("streak-number").textContent = stats.cleanStreak;
+    el("streak-label").innerHTML =
+      (stats.cleanStreak === 1 ? "day" : "days") + "<br>clean streak";
+
+    // The kerb: one stone for each day of the week
+    const dayLetters = ["M", "T", "W", "T", "F", "S", "S"];
+    let activeDays = 0;
+
+    stats.thisWeek.forEach(function (wasActive, i) {
+      if (wasActive) activeDays = activeDays + 1;
+
+      const item = document.createElement("li");
+      item.innerHTML =
+        '<div class="stone' + (wasActive ? " painted" : "") + '"></div>' +
+        '<span class="day">' + dayLetters[i] + "</span>";
+      el("kerb").appendChild(item);
+    });
+
+    el("streak-note").textContent =
+      "Active on " + activeDays + " of 7 days this week.";
+
+    // Impact points
+    el("points-number").textContent = stats.impactPoints;
+
+    // Report numbers
+    el("num-submitted").textContent = stats.reportsSubmitted;
+    el("num-verified").textContent = stats.reportsVerified;
+    el("num-resolved").textContent = stats.reportsResolved;
+
+    // Bar lengths: each bar is a share of the submitted reports
+    function share(count) {
+      if (stats.reportsSubmitted === 0) return "0%";
+      return (count / stats.reportsSubmitted) * 100 + "%";
+    }
+
+    // Waiting one moment lets the bars grow instead of just appearing
+    setTimeout(function () {
+      el("bar-submitted").style.width = share(stats.reportsSubmitted);
+      el("bar-verified").style.width = share(stats.reportsVerified);
+      el("bar-resolved").style.width = share(stats.reportsResolved);
+    }, 100);
+
+    // The sentence under the bars
+    if (stats.reportsSubmitted === 0) {
+      el("reports-note").textContent =
+        "You have not reported anything yet. Your first report starts your streak.";
+    } else {
+      el("reports-note").textContent =
+        stats.reportsResolved + " of your " + stats.reportsSubmitted +
+        " reports have been cleaned up.";
+    }
+  </script>
+</body>
+</html>
