@@ -17,42 +17,45 @@
        Change a colour here and it changes everywhere on the page.
        impact.html uses the same list, so keep the two in sync. */
     :root {
-      --plate: #1D4F91;       /* street-sign blue: logo and main button */
-      --plate-deep: #143A6E;  /* darker blue, used when you hover */
-      --paper: #F2F5F7;       /* page background */
-      --card: #FFFFFF;        /* button background */
-      --ink: #15202B;         /* main text */
-      --muted: #55636F;       /* quieter text */
-      --line: #D5DCE2;        /* borders */
-      --kerb: #F4BE1A;        /* kerb yellow */
+      --green: #157347;       /* main green: left side and main button */
+      --green-deep: #0E5132;  /* darker green, used when you hover */
+      --green-soft: #E8F5EE;  /* very pale green */
+      --white: #FFFFFF;
+      --ink: #12251B;         /* main text (a very dark green) */
+      --muted: #4B5F54;       /* quieter text */
+      --line: #C9E0D3;        /* borders */
     }
 
     * { box-sizing: border-box; }
 
     body {
       margin: 0;
-      background: var(--paper);
+      background: var(--white);
       color: var(--ink);
       font-family: "Mukta", system-ui, sans-serif;
       font-size: 1.125rem;
       line-height: 1.5;
     }
 
-    /* The yellow and black painted kerb along the top of the page */
-    .kerb-band {
-      height: 12px;
-      background: repeating-linear-gradient(
-        90deg,
-        var(--kerb) 0 56px,
-        var(--ink) 56px 112px
-      );
+    /* ---------- PAGE LAYOUT ----------
+       On a phone: the green part sits on top, the buttons below it.
+       On a laptop: they sit side by side and fill the whole screen
+       (see the "WIDE SCREENS" block further down). */
+    .split {
+      display: grid;
+      grid-template-rows: auto 1fr;
+      min-height: 100vh;
     }
 
-    /* Keeps everything in a phone-width column, centred on big screens */
-    .page {
-      max-width: 27rem;
-      margin: 0 auto;
-      padding: 2.5rem 1.25rem 3rem;
+    .hero {
+      padding: 2.5rem 1.25rem;
+      background: var(--green);
+      color: var(--white);
+    }
+
+    .panel {
+      padding: 1.75rem 1.25rem 3rem;
+      background: var(--white);
     }
 
     /* ---------- LOGO (styled like a street nameplate) ---------- */
@@ -62,11 +65,11 @@
       gap: 0.5rem;
       margin: 4px;
       padding: 0.7rem 1.1rem 0.55rem;
-      background: var(--plate);
-      color: #fff;
-      border: 2px solid #fff;
+      background: var(--white);
+      color: var(--green);
+      border: 2px solid var(--green);
       border-radius: 10px;
-      box-shadow: 0 0 0 4px var(--plate);
+      box-shadow: 0 0 0 4px var(--white);
       font-family: "Baloo 2", system-ui, sans-serif;
       font-weight: 800;
       font-size: 1.5rem;
@@ -84,27 +87,29 @@
       margin: 2rem 0 0.75rem;
       font-family: "Baloo 2", system-ui, sans-serif;
       font-weight: 700;
-      font-size: clamp(2.1rem, 9vw, 2.9rem);
+      font-size: clamp(2.2rem, 4.6vw, 4.25rem);
       line-height: 1.08;
       letter-spacing: -0.01em;
     }
 
     .intro {
-      max-width: 34ch;
-      margin: 0 0 2rem;
-      color: var(--muted);
+      max-width: 36ch;
+      margin: 0;
+      color: var(--green-soft);
+      font-size: clamp(1.125rem, 1.5vw, 1.35rem);
     }
 
     /* ---------- THE THREE BUTTONS ---------- */
     .actions {
       display: grid;
-      gap: 0.75rem;
+      gap: 0.9rem;
+      width: 100%;
     }
 
     .action {
       display: block;
       padding: 1rem 1.15rem;
-      background: var(--card);
+      background: var(--white);
       color: var(--ink);
       border: 2px solid var(--line);
       border-radius: 14px;
@@ -124,74 +129,112 @@
       font-size: 1rem;
     }
 
-    .action:hover { border-color: var(--plate); }
-
-    /* The main button is filled in blue so it stands out */
-    .action.primary {
-      background: var(--plate);
-      border-color: var(--plate);
-      color: #fff;
+    .action:hover {
+      background: var(--green-soft);
+      border-color: var(--green);
     }
 
-    .action.primary span { color: #DCE7F5; }
+    /* The main button is filled in green so it stands out */
+    .action.primary {
+      background: var(--green);
+      border-color: var(--green);
+      color: var(--white);
+    }
+
+    .action.primary span { color: var(--green-soft); }
 
     .action.primary:hover {
-      background: var(--plate-deep);
-      border-color: var(--plate-deep);
+      background: var(--green-deep);
+      border-color: var(--green-deep);
     }
 
-    /* Yellow ring when someone moves through the page with the keyboard */
+    /* Dark green ring when someone moves through the page with the keyboard */
     .action:focus-visible {
-      outline: 3px solid var(--kerb);
+      outline: 3px solid var(--green-deep);
       outline-offset: 3px;
+    }
+
+    /* ---------- WIDE SCREENS (laptops and desktops) ----------
+       Everything inside this block only applies when the window
+       is wider than about 900 pixels. */
+    @media (min-width: 56rem) {
+      .split {
+        grid-template-columns: 1.15fr 1fr;   /* green side a little wider */
+        grid-template-rows: auto;
+      }
+
+      .hero,
+      .panel {
+        display: flex;
+        align-items: center;                 /* centre top to bottom */
+        padding: 3rem clamp(2rem, 6vw, 6rem);
+      }
+
+      .hero-inner { max-width: 40rem; }
+
+      .actions {
+        max-width: 34rem;
+        gap: 1.1rem;
+      }
+
+      .action { padding: 1.4rem 1.6rem; }
+      .action strong { font-size: 1.6rem; }
+      .action span { font-size: 1.125rem; }
     }
   </style>
 </head>
 
 <body>
-  <div class="kerb-band"></div>
+  <div class="split">
 
-  <main class="page">
+    <!-- GREEN SIDE: logo, tagline and explanation -->
+    <header class="hero">
+      <div class="hero-inner">
 
-    <!-- LOGO. CHANGE THIS: replace CleanMap with your app's name -->
-    <div class="plate">
-      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path d="M12 22s7-6.6 7-12a7 7 0 1 0-14 0c0 5.4 7 12 7 12z" fill="#fff"/>
-        <circle cx="12" cy="10" r="2.6" fill="#1D4F91"/>
-      </svg>
-      CleanMap
-    </div>
+        <!-- LOGO. CHANGE THIS: replace CleanMap with your app's name -->
+        <div class="plate">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M12 22s7-6.6 7-12a7 7 0 1 0-14 0c0 5.4 7 12 7 12z" fill="#157347"/>
+            <circle cx="12" cy="10" r="2.6" fill="#fff"/>
+          </svg>
+          CleanMap
+        </div>
 
-    <!-- TAGLINE. CHANGE THIS -->
-    <h1>Cleaner streets start with one photo.</h1>
+        <!-- TAGLINE. CHANGE THIS -->
+        <h1>Cleaner streets start with one photo.</h1>
 
-    <!-- SHORT EXPLANATION. CHANGE THIS -->
-    <p class="intro">
-      Photograph garbage or an open dump near you, mark where it is,
-      and follow your report until it is cleaned up.
-    </p>
+        <!-- SHORT EXPLANATION. CHANGE THIS -->
+        <p class="intro">
+          Photograph garbage or an open dump near you, mark where it is,
+          and follow your report until it is cleaned up.
+        </p>
 
-    <!-- THE THREE BUTTONS.
+      </div>
+    </header>
+
+    <!-- WHITE SIDE: the three buttons.
          href is the file each button opens.
          report.html and map.html are your teammates' screens, so their
          file names must match what is written here. -->
-    <nav class="actions">
-      <a class="action primary" href="report.html">
-        <strong>Report a problem</strong>
-        <span>Send a photo and a location</span>
-      </a>
+    <main class="panel">
+      <nav class="actions">
+        <a class="action primary" href="report.html">
+          <strong>Report a problem</strong>
+          <span>Send a photo and a location</span>
+        </a>
 
-      <a class="action" href="map.html">
-        <strong>Community map</strong>
-        <span>See what has been reported near you</span>
-      </a>
+        <a class="action" href="map.html">
+          <strong>Community map</strong>
+          <span>See what has been reported near you</span>
+        </a>
 
-      <a class="action" href="impact.html">
-        <strong>My impact</strong>
-        <span>Your streak, points and reports</span>
-      </a>
-    </nav>
+        <a class="action" href="impact.html">
+          <strong>My impact</strong>
+          <span>Your streak, points and reports</span>
+        </a>
+      </nav>
+    </main>
 
-  </main>
+  </div>
 </body>
 </html>
