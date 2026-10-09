@@ -1,0 +1,171 @@
+/* Screen 4 styles. Everything is scoped under .s4 (or s4- prefixed) to avoid clashes when merging. */
+
+.s4 {
+  --s4-bg: #f6f9f5;
+  --s4-surface: #ffffff;
+  --s4-ink: #14231a;
+  --s4-muted: #5d6f63;
+  --s4-line: #e1e9e2;
+  --s4-green: #1f8a4c;
+  --s4-green-dark: #146236;
+  --s4-green-soft: #e6f4ea;
+
+  --s4-garbage: #d9622b;
+  --s4-water: #2478c7;
+  --s4-clean: #1f8a4c;
+  --s4-other: #7a5fc2;
+
+  --s4-reported: #b7791f;
+  --s4-action: #2478c7;
+  --s4-resolved: #1f8a4c;
+
+  font-family: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+  color: var(--s4-ink);
+  background: var(--s4-bg);
+  min-height: 100vh;
+  padding: 24px clamp(16px, 4vw, 48px) 40px;
+  box-sizing: border-box;
+}
+.s4 *, .s4 *::before, .s4 *::after { box-sizing: border-box; }
+body { margin: 0; }
+
+.visually-hidden {
+  position: absolute; width: 1px; height: 1px; overflow: hidden;
+  clip: rect(0 0 0 0); white-space: nowrap;
+}
+
+/* Header */
+.s4-header {
+  display: flex; flex-wrap: wrap; align-items: flex-end;
+  justify-content: space-between; gap: 12px; margin-bottom: 20px;
+}
+.s4-title h1 {
+  font-family: "Bricolage Grotesque", "Figtree", sans-serif;
+  font-size: clamp(1.8rem, 4vw, 2.6rem); line-height: 1.1;
+  margin: 0 0 6px; letter-spacing: -0.02em;
+}
+.s4-title p { margin: 0; color: var(--s4-muted); }
+.s4-demo-badge {
+  font-size: 0.82rem; color: #8a5a00; background: #fff4d9;
+  border: 1px solid #f0dca4; padding: 6px 12px; border-radius: 999px;
+}
+
+/* Toolbar */
+.s4-toolbar { margin-bottom: 18px; display: grid; gap: 12px; }
+.s4-search-row { display: flex; gap: 10px; flex-wrap: wrap; }
+.s4-search {
+  flex: 1 1 280px; display: flex; align-items: center; gap: 10px;
+  background: var(--s4-surface); border: 1px solid var(--s4-line);
+  border-radius: 14px; padding: 0 14px; color: var(--s4-muted);
+  box-shadow: 0 1px 2px rgba(20, 35, 26, 0.04);
+}
+.s4-search:focus-within { border-color: var(--s4-green); box-shadow: 0 0 0 3px rgba(31, 138, 76, 0.15); }
+.s4-search input {
+  flex: 1; border: 0; outline: 0; background: transparent;
+  font: inherit; color: var(--s4-ink); padding: 13px 0;
+}
+.s4-locate {
+  display: inline-flex; align-items: center; gap: 8px;
+  font: inherit; font-weight: 600; color: var(--s4-green-dark);
+  background: var(--s4-green-soft); border: 1px solid #c6e5cf;
+  border-radius: 14px; padding: 0 18px; min-height: 48px; cursor: pointer;
+}
+.s4-locate:hover { background: #d8eedf; }
+
+.s4-filters { display: flex; flex-wrap: wrap; gap: 8px; }
+.s4-chip {
+  font: inherit; font-weight: 500; font-size: 0.92rem; cursor: pointer;
+  background: var(--s4-surface); color: var(--s4-ink);
+  border: 1px solid var(--s4-line); border-radius: 999px; padding: 8px 16px;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+.s4-chip:hover { border-color: var(--s4-green); }
+.s4-chip.is-active { background: var(--s4-green); border-color: var(--s4-green); color: #fff; }
+
+.s4 button:focus-visible, .s4 a:focus-visible {
+  outline: 3px solid rgba(31, 138, 76, 0.45); outline-offset: 2px;
+}
+
+/* Layout: map is the main visual */
+.s4-layout { display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 20px; align-items: start; }
+.s4-map-wrap {
+  position: relative; border-radius: 22px; overflow: hidden;
+  border: 1px solid var(--s4-line); background: var(--s4-surface);
+  box-shadow: 0 10px 30px rgba(20, 35, 26, 0.08);
+}
+#s4-map { height: 660px; width: 100%; z-index: 0; }
+
+.s4-legend {
+  position: absolute; left: 14px; bottom: 14px; z-index: 500;
+  background: rgba(255, 255, 255, 0.95); border: 1px solid var(--s4-line);
+  border-radius: 14px; padding: 10px 14px; font-size: 0.82rem;
+  box-shadow: 0 4px 14px rgba(20, 35, 26, 0.12);
+}
+.s4-legend strong { display: block; margin-bottom: 6px; }
+.s4-legend ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 5px; }
+.s4-legend li { display: flex; align-items: center; gap: 8px; }
+.s4-dot { width: 11px; height: 11px; border-radius: 50%; display: inline-block; flex: none; }
+
+/* Custom map pins */
+.s4-pin {
+  width: 26px; height: 26px; border-radius: 50% 50% 50% 0; transform: rotate(-45deg);
+  border: 3px solid #fff; box-shadow: 0 3px 8px rgba(0, 0, 0, 0.35);
+}
+.s4-pin::after {
+  content: ""; position: absolute; width: 8px; height: 8px; background: #fff;
+  border-radius: 50%; top: 5px; left: 5px;
+}
+
+/* Popup (small preview) */
+.leaflet-popup-content-wrapper { border-radius: 16px; box-shadow: 0 10px 28px rgba(20, 35, 26, 0.22); }
+.leaflet-popup-content { margin: 14px 16px; width: 230px !important; font-family: "Figtree", system-ui, sans-serif; }
+.s4-pop-type { font-weight: 700; font-size: 1rem; margin: 0 0 4px; }
+.s4-pop-loc { margin: 0 0 8px; color: var(--s4-muted); font-size: 0.88rem; }
+.s4-pop-desc { margin: 0 0 8px; font-size: 0.9rem; line-height: 1.4; color: var(--s4-ink); }
+.s4-pop-meta { display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; color: var(--s4-muted); margin-bottom: 10px; }
+.s4-pop-link, .s4-view-btn {
+  display: inline-block; text-decoration: none; font-weight: 600; font-size: 0.88rem;
+  background: var(--s4-green); color: #fff !important; padding: 8px 14px; border-radius: 10px;
+}
+.s4-pop-link:hover, .s4-view-btn:hover { background: var(--s4-green-dark); }
+
+/* Status */
+.s4-status { display: inline-flex; align-items: center; gap: 6px; font-weight: 600; font-size: 0.82rem; }
+.s4-status::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
+.s4-status[data-status="Reported"] { color: var(--s4-reported); }
+.s4-status[data-status="Under Action"] { color: var(--s4-action); }
+.s4-status[data-status="Resolved"] { color: var(--s4-resolved); }
+
+/* Nearby reports */
+.s4-nearby {
+  background: var(--s4-surface); border: 1px solid var(--s4-line); border-radius: 22px;
+  padding: 18px; box-shadow: 0 10px 30px rgba(20, 35, 26, 0.06);
+}
+.s4-nearby-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.s4-nearby-head h2 { font-family: "Bricolage Grotesque", "Figtree", sans-serif; font-size: 1.25rem; margin: 0; }
+.s4-count { font-size: 0.82rem; color: var(--s4-muted); }
+.s4-cards { display: grid; gap: 12px; max-height: 560px; overflow-y: auto; padding-right: 4px; }
+.s4-card {
+  border: 1px solid var(--s4-line); border-radius: 16px; padding: 14px;
+  background: #fff; cursor: pointer; transition: border-color 0.15s, box-shadow 0.15s;
+}
+.s4-card:hover { border-color: var(--s4-green); box-shadow: 0 6px 16px rgba(31, 138, 76, 0.12); }
+.s4-card-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 6px; }
+.s4-card-type { display: flex; align-items: center; gap: 8px; font-weight: 700; }
+.s4-card-loc { margin: 0 0 6px; font-size: 0.86rem; color: var(--s4-muted); }
+.s4-card-desc { margin: 0 0 12px; font-size: 0.9rem; line-height: 1.4; }
+.s4-card-foot { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.s4-card-time { font-size: 0.78rem; color: var(--s4-muted); }
+.s4-empty { text-align: center; color: var(--s4-muted); padding: 24px 8px; margin: 0; }
+
+/* Responsive */
+@media (max-width: 960px) {
+  .s4-layout { grid-template-columns: 1fr; }
+  #s4-map { height: 480px; }
+  .s4-cards { max-height: none; }
+}
+@media (max-width: 520px) {
+  #s4-map { height: 400px; }
+  .s4-locate { flex: 1 1 100%; justify-content: center; }
+  .s4-legend { font-size: 0.74rem; padding: 8px 10px; }
+}
