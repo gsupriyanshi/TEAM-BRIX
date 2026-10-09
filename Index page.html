@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <!-- CHANGE THIS: the text shown on the browser tab -->
-  <title>CleanMap</title>
+  <title>rippple</title>
 
   <!-- Fonts (loaded from Google Fonts, needs internet) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -58,28 +58,14 @@
       background: var(--white);
     }
 
-    /* ---------- LOGO (styled like a street nameplate) ---------- */
-    .plate {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      margin: 4px;
-      padding: 0.7rem 1.1rem 0.55rem;
-      background: var(--white);
-      color: var(--green);
-      border: 2px solid var(--green);
-      border-radius: 10px;
-      box-shadow: 0 0 0 4px var(--white);
-      font-family: "Baloo 2", system-ui, sans-serif;
-      font-weight: 800;
-      font-size: 1.5rem;
-      line-height: 1;
-    }
-
-    .plate svg {
-      width: 1.3rem;
-      height: 1.3rem;
-      margin-top: -0.2rem;
+    /* ---------- LOGO ----------
+       The picture file logo.jpg must be in the same folder as this page.
+       CHANGE THIS: the numbers in "width" make the logo bigger or smaller. */
+    .logo {
+      display: block;
+      width: clamp(11rem, 22vw, 17rem);
+      height: auto;
+      border-radius: 16px;
     }
 
     /* ---------- TAGLINE AND EXPLANATION ---------- */
@@ -191,14 +177,8 @@
     <header class="hero">
       <div class="hero-inner">
 
-        <!-- LOGO. CHANGE THIS: replace CleanMap with your app's name -->
-        <div class="plate">
-          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M12 22s7-6.6 7-12a7 7 0 1 0-14 0c0 5.4 7 12 7 12z" fill="#157347"/>
-            <circle cx="12" cy="10" r="2.6" fill="#fff"/>
-          </svg>
-          CleanMap
-        </div>
+        <!-- LOGO: shows the picture file logo.jpg -->
+        <img class="logo" src="logo.jpg" alt="rippple logo" width="900" height="673">
 
         <!-- TAGLINE. CHANGE THIS -->
         <h1>Cleaner streets start with one photo.</h1>
