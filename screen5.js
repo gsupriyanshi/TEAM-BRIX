@@ -767,6 +767,43 @@
 
       ]
 
+    },
+    
+    // Sector 49, Noida — recurring garbage dumping
+    "sector49-garbage": {
+      id: "RPT-014",
+      category: "Garbage Dumping",
+      location: "Sector 49, Noida",
+      description:
+        "Recurring garbage dumping in the locality. The submitted photographs show accumulated waste along the roadside.",
+      reportedBy: "Community Resident",
+      reportedTime: "Recently reported",
+      reportsFiled: "Needs verification",
+      locationType: "Roadside / locality",
+      status: "Under Action",
+      photoUrl: "images/sector49-dumping-1.jpeg",
+      photos: [
+        "images/sector49-dumping-1.jpeg",
+        "images/sector49-dumping-2.jpeg"
+      ],
+      cleaningPattern: "Repeated dumping reported",
+      lastCleaned: "Needs verification",
+      issueReturned: "Reported as recurring",
+      previousReports: "Needs verification",
+      conditionNote:
+        "Community concern: garbage dumping reportedly recurs even after cleaning. Previous cleaning dates and complaint records need verification.",
+      timeline: [
+        {
+          date: "Current report",
+          title: "Garbage dumping reported",
+          text: "Photographs submitted showing accumulated waste in Sector 49, Noida."
+        },
+        {
+          date: "Previous incidents",
+          title: "Recurring locality concern",
+          text: "Repeated dumping has been reported by the community; exact dates require verification."
+        }
+      ]
     }
 
   };
