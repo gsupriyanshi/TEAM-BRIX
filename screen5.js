@@ -781,10 +781,11 @@
       reportsFiled: "Needs verification",
       locationType: "Roadside / locality",
       status: "Under Action",
-      photoUrl: "images/sector49-dumping-1.jpeg",
-      photos: [
-        "images/sector49-dumping-1.jpeg",
-        "images/sector49-dumping-2.jpeg"
+       photoUrl: "images/sector49-dumping-1.jpeg",
+  photos: [
+    "images/sector49-dumping-1.jpeg",
+    "images/sector49-dumping-2.jpeg"
+
       ],
       cleaningPattern: "Repeated dumping reported",
       lastCleaned: "Needs verification",
