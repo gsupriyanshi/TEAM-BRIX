@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>My impact | CleanMap</title>
+  <title>My impact | rippple</title>
 
   <!-- Fonts (loaded from Google Fonts, needs internet) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -48,6 +48,23 @@
       padding: 1.25rem 0 1.5rem;
       background: var(--green);
       color: var(--white);
+    }
+
+    /* Title on the left, logo on the right */
+    .topbar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    /* LOGO: the picture file logo.jpg must be in the same folder as this page.
+       CHANGE THIS: the numbers in "width" make the logo bigger or smaller. */
+    .logo {
+      display: block;
+      width: clamp(6.5rem, 12vw, 9.5rem);
+      height: auto;
+      border-radius: 12px;
     }
 
     .back {
@@ -246,7 +263,8 @@
     .button:hover { background: var(--green-deep); }
 
     /* Rings shown when someone moves through the page with the keyboard */
-    .back:focus-visible {
+    .back:focus-visible,
+    .logo-link:focus-visible {
       outline: 3px solid var(--white);
       outline-offset: 3px;
     }
@@ -315,9 +333,16 @@
 
   <!-- GREEN BAR AT THE TOP -->
   <header class="topbar">
-    <div class="wrap">
-      <a class="back" href="index.html">Back to home</a>
-      <h1>My impact</h1>
+    <div class="wrap topbar-inner">
+      <div>
+        <a class="back" href="index.html">Back to home</a>
+        <h1>My impact</h1>
+      </div>
+
+      <!-- LOGO: clicking it also goes back to the home page -->
+      <a class="logo-link" href="index.html">
+        <img class="logo" src="logo.jpg" alt="rippple logo, back to home" width="900" height="673">
+      </a>
     </div>
   </header>
 
