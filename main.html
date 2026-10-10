@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Ripple | Small actions, big impact</title>
+    <link rel="stylesheet" href="mainPage.css">
+</head>
+
+<body>
+
+    <!-- Reusable leaf shape for the drifting leaves -->
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+        <symbol id="leaf" viewBox="0 0 24 24">
+            <path d="M5 19c0-8 5-14 15-14 0 10-6 15-14 15z" fill="currentColor" />
+            <path d="M5 19l8-8" fill="none" stroke="#fdfaf3" stroke-width="1.2" stroke-linecap="round" />
+        </symbol>
+    </svg>
+
+    <!-- Drifting leaves (decorative) -->
+    <div class="leaves" aria-hidden="true">
+        <svg class="leaf" style="--x:6%;  --s:30px; --t:22s; --d:-4s">
+            <use href="#leaf" />
+        </svg>
+        <svg class="leaf lime" style="--x:19%; --s:20px; --t:27s; --d:-15s">
+            <use href="#leaf" />
+        </svg>
+        <svg class="leaf" style="--x:33%; --s:26px; --t:24s; --d:-9s">
+            <use href="#leaf" />
+        </svg>
+        <svg class="leaf lime" style="--x:52%; --s:34px; --t:30s; --d:-20s">
+            <use href="#leaf" />
+        </svg>
+        <svg class="leaf" style="--x:68%; --s:22px; --t:21s; --d:-2s">
+            <use href="#leaf" />
+        </svg>
+        <svg class="leaf lime" style="--x:81%; --s:28px; --t:26s; --d:-12s">
+            <use href="#leaf" />
+        </svg>
+        <svg class="leaf" style="--x:93%; --s:24px; --t:23s; --d:-18s">
+            <use href="#leaf" />
+        </svg>
+    </div>
+
+    <main class="stage">
+        <div class="logo-wrap">
+            <!-- Ripple rings spreading out from behind the logo -->
+            <div class="rings" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+            <img class="logo" src="logo.jpeg" alt="Ripple logo" width="1000" height="608">
+        </div>
+
+        <!-- The tagline. script.js types it out letter by letter. -->
+        <h1 class="tagline" id="tagline" aria-label="Small actions, big impact.">Small actions, big impact.</h1>
+    </main>
+
+    <script src="firstPage.js"></script>
+</body>
+
+</html>

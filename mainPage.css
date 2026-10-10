@@ -1,0 +1,305 @@
+/* ---------- Colours ---------- */
+:root {
+    --cream: #fdfaf3;
+    /* matches the logo's own background */
+    --forest: #1f3016;
+    --emerald: #4a6a28;
+    /* fern green */
+    --accent: #80EF80;
+    /* bright green */
+    --font: "Avenir Next", "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    color-scheme: light;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: var(--font);
+    color: var(--forest);
+    background-color: var(--cream);
+    background-image:
+        radial-gradient(circle at 12% 8%, rgba(128, 239, 128, 0.2), transparent 42%),
+        radial-gradient(circle at 90% 92%, rgba(138, 166, 58, 0.14), transparent 45%);
+    background-attachment: fixed;
+}
+
+/* ---------- Drifting leaves ---------- */
+.leaves {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.leaf {
+    position: absolute;
+    top: -60px;
+    left: var(--x);
+    width: var(--s);
+    height: var(--s);
+    color: rgba(74, 106, 40, 0.26);
+    animation: fall var(--t) linear var(--d) infinite;
+}
+
+.leaf.lime {
+    color: rgba(128, 239, 128, 0.6);
+}
+
+@keyframes fall {
+    0% {
+        transform: translate(0, -10vh) rotate(0deg);
+    }
+
+    25% {
+        transform: translate(34px, 28vh) rotate(80deg);
+    }
+
+    50% {
+        transform: translate(-24px, 56vh) rotate(170deg);
+    }
+
+    75% {
+        transform: translate(28px, 84vh) rotate(250deg);
+    }
+
+    100% {
+        transform: translate(-10px, 115vh) rotate(330deg);
+    }
+}
+
+/* ---------- Layout ---------- */
+.stage {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    min-height: 100dvh;
+    padding: max(28px, env(safe-area-inset-top)) 20px max(36px, env(safe-area-inset-bottom));
+    text-align: center;
+    overflow: clip;
+}
+
+/* ---------- Logo and rings ---------- */
+.logo-wrap {
+    position: relative;
+    width: min(88vw, 640px);
+}
+
+.logo {
+    position: relative;
+    z-index: 1;
+    display: block;
+    width: 100%;
+    height: auto;
+    animation: logo-in 1s cubic-bezier(0.22, 1, 0.36, 1) both,
+        float 7s ease-in-out 1.2s infinite;
+}
+
+.rings span {
+    position: absolute;
+    left: 50%;
+    top: 56%;
+    width: 62%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    border: 2px solid rgba(74, 106, 40, 0.22);
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.3);
+    animation: ring 10s ease-out infinite;
+}
+
+.rings span:nth-child(even) {
+    border-color: rgba(128, 239, 128, 0.7);
+}
+
+.rings span:nth-child(2) {
+    animation-delay: 2.5s;
+}
+
+.rings span:nth-child(3) {
+    animation-delay: 5s;
+}
+
+.rings span:nth-child(4) {
+    animation-delay: 7.5s;
+}
+
+@keyframes ring {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.3);
+    }
+
+    12% {
+        opacity: 0.9;
+    }
+
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(3.4);
+    }
+}
+
+@keyframes logo-in {
+    from {
+        opacity: 0;
+        transform: translateY(22px) scale(0.96);
+    }
+
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
+/* ---------- Typed tagline ---------- */
+.tagline {
+    margin: clamp(10px, 2.5vh, 26px) 0 0;
+    max-width: 20ch;
+    font-size: clamp(1.8rem, 6vw, 3rem);
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    color: var(--forest);
+    animation: fade-in 0.8s ease 0.5s both;
+}
+
+/* Every letter is on the page from the start (so the layout never jumps),
+   but invisible until the script "types" it */
+.ch {
+    opacity: 0;
+}
+
+.ch.on {
+    opacity: 1;
+}
+
+.word {
+    display: inline-block;
+    white-space: nowrap;
+}
+
+/* "big impact." is highlighted once the sentence is finished */
+.em-group {
+    color: var(--emerald);
+    background: linear-gradient(transparent 62%, rgba(128, 239, 128, 0.6) 62%) no-repeat left / 0% 100%;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+    transition: background-size 0.9s ease;
+}
+
+.done .em-group {
+    background-size: 100% 100%;
+}
+
+/* The blinking cursor. It takes up no space, so it never moves the text. */
+.caret {
+    position: relative;
+    display: inline-block;
+    width: 0;
+    height: 1em;
+    vertical-align: -0.1em;
+    opacity: 0;
+}
+
+.ready .caret {
+    opacity: 1;
+}
+
+.caret::after {
+    content: "";
+    position: absolute;
+    left: 3px;
+    top: -0.02em;
+    bottom: -0.02em;
+    width: 3px;
+    border-radius: 2px;
+    background: var(--emerald);
+    box-shadow: 0 0 12px rgba(128, 239, 128, 0.95);
+    animation: blink 1.05s steps(1) infinite;
+}
+
+.typing .caret::after {
+    animation: none;
+}
+
+/* solid while letters are appearing */
+
+@keyframes blink {
+
+    0%,
+    50% {
+        opacity: 1;
+    }
+
+    50.01%,
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* ---------- Reduced motion: show everything, no movement ---------- */
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation: none !important;
+        transition: none !important;
+    }
+
+    .leaves,
+    .rings,
+    .caret {
+        display: none;
+    }
+
+    .ch {
+        opacity: 1;
+    }
+
+    .em-group {
+        background-size: 100% 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .tagline {
+        max-width: 14ch;
+    }
+}
