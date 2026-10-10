@@ -106,6 +106,7 @@ body {
     height: auto;
     animation: logo-in 1s cubic-bezier(0.22, 1, 0.36, 1) both,
         float 7s ease-in-out 1.2s infinite;
+    border-radius: 50%;
 }
 
 .rings span {
