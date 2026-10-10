@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Report Details | Community Reports</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700&family=Figtree:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="screen5.css" />
+</head>
+
+<body>
+
+  <div id="screen5" class="s5">
+
+    <!-- HEADER -->
+    <header class="s5-header">
+
+      <a href="screen4.html" class="s5-back">
+        ← Back to Community Reports
+      </a>
+
+      <span class="s5-demo-badge">
+        Demo data
+      </span>
+
+    </header>
+
+
+    <!-- REPORT HEADER -->
+    <section class="s5-report-header">
+
+      <div>
+        <div class="s5-report-id" id="report-id">
+          REPORT
+        </div>
+
+        <h1 id="report-title">
+          Garbage Dumping
+        </h1>
+
+        <p class="s5-location" id="report-location">
+          📍 Loading location...
+        </p>
+      </div>
+
+      <div id="report-status" class="s5-status">
+        Reported
+      </div>
+
+    </section>
+
+
+    <!-- MAIN GRID -->
+    <main class="s5-grid">
+
+      <!-- LEFT SIDE -->
+      <section class="s5-main">
+
+        <!-- PHOTO -->
+        <div class="s5-card s5-photo-card">
+
+          <div class="s5-card-heading">
+            <div>
+              <h2>Photo evidence</h2>
+              <p>Visual evidence submitted with this report.</p>
+            </div>
+
+            <span class="s5-photo-tag">
+              Evidence
+            </span>
+          </div>
+
+          <div class="s5-photo-wrap">
+            <img
+              id="report-photo"
+              src=""
+              alt="Report evidence"
+            />
+
+            <div id="photo-placeholder" class="s5-photo-placeholder">
+              <span>📷</span>
+              <strong>No photo uploaded yet</strong>
+              <small>Photos uploaded through the reporting system will appear here.</small>
+            </div>
+          </div>
+
+        </div>
+
+
+        <!-- DESCRIPTION -->
+        <div class="s5-card">
+
+          <div class="s5-card-heading">
+            <div>
+              <h2>Report details</h2>
+              <p>What was reported by the community?</p>
+            </div>
+          </div>
+
+          <p id="report-description" class="s5-description">
+            Loading report details...
+          </p>
+
+        </div>
+
+
+        <!-- LOCALITY CONDITION -->
+        <div class="s5-card">
+
+          <div class="s5-card-heading">
+            <div>
+              <h2>Locality condition</h2>
+              <p>Current condition and cleaning pattern.</p>
+            </div>
+          </div>
+
+          <div class="s5-condition-grid">
+
+            <div class="s5-condition">
+              <span class="s5-condition-label">
+                Cleaning pattern
+              </span>
+
+              <strong id="cleaning-pattern">
+                —
+              </strong>
+            </div>
+
+            <div class="s5-condition">
+              <span class="s5-condition-label">
+                Last cleaned
+              </span>
+
+              <strong id="last-cleaned">
+                —
+              </strong>
+            </div>
+
+            <div class="s5-condition">
+              <span class="s5-condition-label">
+                Issue returned
+              </span>
+
+              <strong id="issue-returned">
+                —
+              </strong>
+            </div>
+
+            <div class="s5-condition">
+              <span class="s5-condition-label">
+                Previous reports
+              </span>
+
+              <strong id="previous-reports">
+                —
+              </strong>
+            </div>
+
+          </div>
+
+          <div class="s5-condition-note" id="condition-note">
+            —
+          </div>
+
+        </div>
+
+
+        <!-- TIMELINE -->
+        <div class="s5-card">
+
+          <div class="s5-card-heading">
+            <div>
+              <h2>Report timeline</h2>
+              <p>History of this issue.</p>
+            </div>
+          </div>
+
+          <div id="report-timeline" class="s5-timeline">
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- RIGHT SIDE -->
+      <aside class="s5-sidebar">
+
+        <!-- BASIC INFO -->
+        <div class="s5-card">
+
+          <h2 class="s5-sidebar-title">
+            Report information
+          </h2>
+
+          <div class="s5-info-list">
+
+            <div class="s5-info">
+              <span>Reported by</span>
+              <strong id="reported-by">—</strong>
+            </div>
+
+            <div class="s5-info">
+              <span>Reported</span>
+              <strong id="reported-time">—</strong>
+            </div>
+
+            <div class="s5-info">
+              <span>Reports filed</span>
+              <strong id="reports-filed">—</strong>
+            </div>
+
+            <div class="s5-info">
+              <span>Location type</span>
+              <strong id="location-type">—</strong>
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- ACTION -->
+        <div class="s5-card s5-action-card">
+
+          <div class="s5-action-icon">
+            ✓
+          </div>
+
+          <h2>Community action</h2>
+
+          <p id="action-text">
+            Community members can report recurring issues and help authorities identify repeated problem areas.
+          </p>
+
+          <button
+            type="button"
+            class="s5-action-btn"
+            id="report-again-btn"
+          >
+            Report this issue again
+          </button>
+
+        </div>
+
+
+        <!-- LOCATION -->
+        <div class="s5-card">
+
+          <h2 class="s5-sidebar-title">
+            Location
+          </h2>
+
+          <div class="s5-mini-map">
+            <div class="s5-map-pin">
+              📍
+            </div>
+
+            <span id="mini-map-location">
+              Loading...
+            </span>
+          </div>
+
+        </div>
+
+      </aside>
+
+    </main>
+
+  </div>
+
+  <script src="screen5.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Community Reports | Screen 4</title>
+
+  <!-- Leaflet (OpenStreetMap map library) -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="screen4.css" />
+</head>
+<body>
+  <!-- All Screen 4 content lives inside #screen4 so it is easy to merge later -->
+  <div id="screen4" class="s4">
+
+    <header class="s4-header">
+      <div class="s4-title">
+        <h1>Community reports</h1>
+        <p>Explore issues reported across North India.</p>
+      </div>
+      <span class="s4-demo-badge">Demo data only. These are not real complaints.</span>
+    </header>
+
+    <section class="s4-toolbar" aria-label="Search and filters">
+      <div class="s4-search-row">
+        <label class="s4-search">
+          <span class="visually-hidden">Search reports</span>
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="M20 20l-3.5-3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          <input id="s4-search-input" type="search" placeholder="Search by location or issue type" autocomplete="off" />
+        </label>
+        <!-- Visual only. Geolocation is NOT implemented yet. -->
+        <button id="s4-locate-btn" class="s4-locate" type="button" title="Coming soon">
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          Use my location
+        </button>
+      </div>
+
+      <div class="s4-filters" role="group" aria-label="Filter by category">
+        <button class="s4-chip is-active" data-filter="all" type="button">All</button>
+        <button class="s4-chip" data-filter="garbage" type="button">Garbage</button>
+        <button class="s4-chip" data-filter="waterlogging" type="button">Waterlogging</button>
+        <button class="s4-chip" data-filter="cleanliness" type="button">Cleanliness</button>
+        <button class="s4-chip" data-filter="other" type="button">Other</button>
+      </div>
+    </section>
+
+    <main class="s4-layout">
+      <section class="s4-map-wrap" aria-label="Reports map">
+        <div id="s4-map"></div>
+        <div class="s4-legend" aria-label="Map legend">
+          <strong>Legend</strong>
+          <ul id="s4-legend-list"></ul>
+        </div>
+      </section>
+
+      <aside class="s4-nearby" aria-label="Nearby reports">
+        <div class="s4-nearby-head">
+          <h2>Nearby reports</h2>
+          <span id="s4-count" class="s4-count"></span>
+        </div>
+        <div id="s4-cards" class="s4-cards"></div>
+        <p id="s4-empty" class="s4-empty" hidden>No reports match. Try another search or filter.</p>
+      </aside>
+    </main>
+
+  </div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+          integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="screen4.js"></script>
+</body>
+</html>
