@@ -1,0 +1,379 @@
+/* ---------- Design tokens ---------- */
+:root {
+    --forest: #1f3016;
+    --emerald: #4a6a28;
+    --emerald-dark: #395220;
+    --leaf: #8aa63a;
+    --mint: #edf1df;
+    --mint-border: #cdd8ae;
+    --bg: #f4f6ee;
+    --white: #ffffff;
+    --text: #1f241b;
+    --muted: #5c6455;
+    --line: #dde2cf;
+    --error: #b3261e;
+    --error-bg: #fdecea;
+    --radius: 16px;
+    --font: "Avenir Next", "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: var(--font);
+    color: var(--text);
+    line-height: 1.5;
+    background-color: var(--bg);
+    /* Subtle leaf pattern (inline SVG, no external assets) */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 24 24' fill='none' stroke='%234a6a28' stroke-opacity='0.07' stroke-width='0.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 19c0-8 5-14 15-14 0 10-6 15-14 15M5 19l8-8'/%3E%3C/svg%3E");
+    background-size: 120px 120px;
+}
+
+.icon {
+    width: 22px;
+    height: 22px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.7;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    flex-shrink: 0;
+}
+
+/* ---------- Layout ---------- */
+.page {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 40px 16px 56px;
+}
+
+.card {
+    width: 100%;
+    max-width: 680px;
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: 24px;
+    box-shadow: 0 1px 2px rgba(31, 48, 22, 0.05), 0 18px 48px rgba(31, 48, 22, 0.1);
+    overflow: hidden;
+}
+
+/* ---------- Brand logo ---------- */
+.brand {
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 8px;
+    text-align: left;
+}
+
+.brand img {
+    display: block;
+    box-sizing: content-box;
+    width: 104px;
+    max-width: 34%;
+    height: auto;
+    padding: 6px 10px;
+    background: #fdfaf3;
+    border-radius: 14px;
+    box-shadow: 0 4px 12px rgba(31, 48, 22, 0.18);
+}
+
+/* ---------- Header ---------- */
+.card-header {
+    position: relative;
+    padding: 18px 24px 32px;
+    text-align: center;
+    color: var(--forest);
+    background: #80EF80;
+}
+
+.header-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    margin-bottom: 14px;
+    border-radius: 16px;
+    background: rgba(31, 48, 22, 0.1);
+    border: 1px solid rgba(31, 48, 22, 0.25);
+    color: var(--forest);
+}
+
+.header-icon .icon {
+    width: 28px;
+    height: 28px;
+}
+
+.card-header h1 {
+    margin: 0 0 6px;
+    font-size: clamp(1.6rem, 4.5vw, 2.1rem);
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+}
+
+.subtitle {
+    margin: 0 auto;
+    max-width: 44ch;
+    color: #2d4120;
+    font-size: 1rem;
+}
+
+/* ---------- Success check ---------- */
+.check {
+    width: 64px;
+    height: 64px;
+    margin: 2px 0 10px;
+}
+
+.check[hidden] {
+    display: none;
+}
+
+.check-circle {
+    fill: rgba(255, 255, 255, 0.55);
+    stroke: var(--forest);
+    stroke-width: 2.5;
+    stroke-dasharray: 151;
+    stroke-dashoffset: 151;
+    animation: draw 0.6s ease forwards;
+}
+
+.check-mark {
+    fill: none;
+    stroke: var(--forest);
+    stroke-width: 4;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 40;
+    stroke-dashoffset: 40;
+    animation: draw 0.4s ease 0.5s forwards;
+}
+
+.card-header h1:focus {
+    outline: none;
+}
+
+/* ---------- Screen 3: report card ---------- */
+.card-body {
+    padding: 32px;
+}
+
+.card-body[hidden] {
+    display: none;
+}
+
+.report-card {
+    display: grid;
+    grid-template-columns: 230px 1fr;
+    margin-bottom: 26px;
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(31, 48, 22, 0.1);
+    animation: rise 0.5s ease both;
+}
+
+.report-photo {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 220px;
+    padding: 12px;
+    text-align: center;
+    font-size: 0.9rem;
+    color: var(--muted);
+    background: var(--mint);
+}
+
+.report-photo img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.report-info {
+    padding: 20px 22px;
+    min-width: 0;
+}
+
+.category-pill {
+    display: inline-block;
+    margin-bottom: 14px;
+    padding: 5px 14px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--forest);
+    background: #80EF80;
+    border-radius: 999px;
+}
+
+.report-list {
+    display: grid;
+    gap: 12px;
+    margin: 0;
+}
+
+.report-list dt {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--muted);
+}
+
+.report-list dd {
+    margin: 2px 0 0;
+    overflow-wrap: anywhere;
+    white-space: pre-wrap;
+}
+
+.mono {
+    font-family: ui-monospace, "SF Mono", Consolas, monospace;
+    font-weight: 700;
+    color: var(--forest);
+}
+
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 12px;
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--forest);
+    background: #80EF80;
+    border-radius: 999px;
+}
+
+.status-badge::before {
+    content: "";
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--forest);
+}
+
+.actions {
+    text-align: center;
+}
+
+.secondary-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 52px;
+    padding: 14px 28px;
+    font: inherit;
+    font-weight: 700;
+    font-size: 1.05rem;
+    text-decoration: none;
+    color: var(--emerald-dark);
+    background: var(--mint);
+    border: 1.5px solid var(--mint-border);
+    border-radius: 14px;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.secondary-btn:hover {
+    background: #e0e8c8;
+    transform: translateY(-2px);
+}
+
+.secondary-btn:focus-visible {
+    outline: 3px solid var(--forest);
+    outline-offset: 3px;
+}
+
+/* ---------- Footer ---------- */
+.card-footer {
+    padding: 16px 32px 24px;
+    text-align: center;
+    border-top: 1px solid var(--line);
+    background: #fafbf6;
+}
+
+.status-chip {
+    display: inline-block;
+    padding: 6px 14px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--emerald-dark);
+    background: var(--mint);
+    border-radius: 999px;
+}
+
+/* ---------- Animations ---------- */
+@keyframes draw {
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+@keyframes rise {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-delay: 0s !important;
+        transition: none !important;
+    }
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 640px) {
+    .page {
+        padding: 16px 12px 40px;
+    }
+
+    .card {
+        border-radius: 20px;
+    }
+
+    .card-header {
+        padding: 16px 16px 24px;
+    }
+
+    .card-body {
+        padding: 24px 16px;
+    }
+
+    .report-card {
+        grid-template-columns: 1fr;
+    }
+
+    .report-photo {
+        min-height: 200px;
+    }
+
+    .secondary-btn {
+        width: 100%;
+    }
+}

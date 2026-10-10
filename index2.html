@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Report Submitted | Ripple</title>
+    <link rel="stylesheet" href="style2.css">
+</head>
+
+<body>
+    <main class="page">
+        <section class="card" aria-labelledby="page-title">
+
+            <header class="card-header">
+                <div class="brand">
+                    <img src="logo.jpeg" alt="Ripple: Small actions. Big impact." width="640" height="475">
+                </div>
+                <svg viewBox="0 0 52 52" class="check" id="check" aria-hidden="true">
+                    <circle class="check-circle" cx="26" cy="26" r="24" />
+                    <path class="check-mark" d="M15 27l8 8 14-16" />
+                </svg>
+                <h1 id="page-title" tabindex="-1">Report Submitted Successfully</h1>
+                <p class="subtitle" id="page-subtitle">Thank you for helping keep our community clean. Your report has
+                    been recorded and will help us address the issue.</p>
+            </header>
+
+            <!-- Screen 3: submitted report card -->
+            <div class="card-body" id="report-view" hidden>
+                <article class="report-card" aria-label="Your submitted report">
+                    <div class="report-photo">
+                        <img id="r-photo" alt="Photo submitted with the report" hidden>
+                        <span id="r-nophoto">No photo provided</span>
+                    </div>
+                    <div class="report-info">
+                        <span class="category-pill" id="r-category"></span>
+                        <dl class="report-list">
+                            <div>
+                                <dt>Location</dt>
+                                <dd id="r-location"></dd>
+                            </div>
+                            <div>
+                                <dt>Description</dt>
+                                <dd id="r-description"></dd>
+                            </div>
+                            <div>
+                                <dt>Report ID</dt>
+                                <dd id="r-id" class="mono"></dd>
+                            </div>
+                            <div>
+                                <dt>Date</dt>
+                                <dd id="r-date"></dd>
+                            </div>
+                            <div>
+                                <dt>Status</dt>
+                                <dd><span class="status-badge" id="r-status">Reported</span></dd>
+                            </div>
+                        </dl>
+                    </div>
+                </article>
+                <div class="actions">
+                    <a class="secondary-btn" href="index.html">Report Another Issue</a>
+                </div>
+            </div>
+
+            <!-- Shown only if no saved report is found -->
+            <div class="card-body" id="empty-view" hidden>
+                <div class="actions">
+                    <a class="secondary-btn" href="index.html">Report an Issue</a>
+                </div>
+            </div>
+
+            <footer class="card-footer">
+                <span class="status-chip">Together for a Cleaner Tomorrow 🌱</span>
+            </footer>
+        </section>
+    </main>
+
+    <script src="script2.js"></script>
+</body>
+
+</html>
