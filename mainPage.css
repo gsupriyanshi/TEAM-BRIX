@@ -305,3 +305,28 @@ body {
         max-width: 14ch;
     }
 }
+/* ---------- Get started button (opens the home page) ---------- */
+.enter {
+    display: inline-block;
+    margin-top: clamp(18px, 3.5vh, 30px);
+    padding: 14px 38px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--forest);
+    text-decoration: none;
+    background: var(--accent);
+    border-radius: 999px;
+    box-shadow: 0 6px 16px rgba(74, 106, 40, 0.3);
+    transition: background 0.2s ease, transform 0.2s ease;
+    animation: fade-in 0.8s ease 1.2s both;
+}
+
+.enter:hover {
+    background: #6EDC6E;
+    transform: translateY(-2px);
+}
+
+.enter:focus-visible {
+    outline: 3px solid var(--forest);
+    outline-offset: 3px;
+}
