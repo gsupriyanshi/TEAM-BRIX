@@ -95,9 +95,10 @@ body {
 /* ---------- Logo and rings ---------- */
 .logo-wrap {
     position: relative;
-    width: min(88vw, 640px);
+    /* 70vh keeps the logo small enough on short screens
+       that the Get started button stays in view */
+    width: min(88vw, 640px, 70vh);
 }
-
 .logo {
     position: relative;
     z-index: 1;
